@@ -8,9 +8,9 @@ spec:
     - name: in-cluster
       server: https://kubernetes.default.svc
       namespace: "*"
-    - name: dev-cluster
-      server: "https://35.185.139.117"
-      namespace: "*"
+    # - name: dev-cluster
+    #   server: "https://a.b.c.d"
+    #   namespace: "*"
   clusterResourceWhitelist:
     - group: "*"
       kind: "*"
