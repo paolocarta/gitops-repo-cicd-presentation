@@ -1,0 +1,19 @@
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: jenkins-server
+  namespace: jenkins
+  annotations:
+    traefik.ingress.kubernetes.io/service.serversscheme: https
+spec:
+  entryPoints:
+    - websecure
+  routes:
+    - kind: Rule
+      match: Host(`jenkins.cicd.withpaolo.com`)
+      priority: 9
+      services:
+        - name: jenkins
+          port: 8080
+  tls:
+    certResolver: myresolver

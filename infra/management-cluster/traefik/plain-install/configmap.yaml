@@ -1,0 +1,59 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: traefik
+data:
+  traefik.yaml: |
+    entryPoints:
+      traefik:
+        address: ":9000"
+      metrics:
+        address: ":9100"
+      web:
+        address: ":8000"
+      websecure:
+        address: ":8443"
+        http:
+          tls:
+            certResolver: myresolver
+
+    certificatesResolvers:
+      myresolver:
+        acme:
+          email: learning@withpaolo.com
+          storage: /data/acme.json
+          httpChallenge:
+            entryPoint: web
+
+    global:
+      checkNewVersion: false
+      sendAnonymousUsage: false
+
+    api:
+      dashboard: true
+      insecure: true
+      debug: false
+
+    metrics:
+      prometheus:
+        entryPoint: metrics
+
+    providers:
+      kubernetesCRD:
+        endpoint: "https://kubernetes.default.svc:443"
+      kubernetesIngress:
+        endpoint: "https://kubernetes.default.svc:443"
+        # ingressClass: "traefik"
+
+    log:
+      level: INFO
+      format: common
+
+    accessLog:
+      format: json
+
+    ping:
+      entryPoint: traefik
+
+    serversTransport:
+      insecureSkipVerify: true

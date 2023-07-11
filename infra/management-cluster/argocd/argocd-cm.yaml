@@ -1,0 +1,19 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: argocd-cm
+  labels:
+    app.kubernetes.io/name: argocd-cm
+    app.kubernetes.io/part-of: argocd
+data:
+  timeout.reconciliation: "60s"
+  # repositories: |
+  #   - url: https://github.com/paolocarta/
+  # repository.credentials: |
+  #   - url: https://github.com/paolocarta/
+  #     usernameSecret:
+  #       name: git-creds
+  #       key: username
+  #     passwordSecret:
+  #       name: git-creds
+  #       key: password

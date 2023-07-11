@@ -1,0 +1,15 @@
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: domain-verification-acme
+  # namespace: ingress-controller
+spec:
+  entryPoints:
+    - web
+  routes:
+    - kind: Rule
+      match:  PathPrefix(`/.well-known/acme-challenge`)
+      priority: 10
+      services:
+        - name: traefik
+          port: 80

@@ -1,0 +1,23 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+# namespace: TBD
+
+resources:
+  - ../../base/code-with-quarkus
+
+patchesStrategicMerge:
+  - deployment.yaml
+
+
+# nameSuffix: -tbd
+
+# replicas:
+#   - name: code-with-quarkus
+#     count: 1
+
+# images:
+# - name: gcr.io/paolos-playground-323415/code-with-quarkus
+#   newName: ggcr.io/paolos-playground-323415/code-with-quarkus
+#   newTag: 2
+

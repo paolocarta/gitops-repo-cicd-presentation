@@ -1,0 +1,11 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: code-with-quarkus
+spec:
+  replicas: 1
+  template:
+    spec:
+      containers:
+        - name: code-with-quarkus
+          image: gcr.io/paolos-playground-323415/code-with-quarkus:11-gitops

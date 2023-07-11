@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: data-traefik
+  labels:
+    type: standard
+  # finalizers:
+  #   - kubernetes.io/pvc-protection
+spec:
+  # storageClassName: default
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 1Gi

@@ -1,0 +1,25 @@
+apiVersion: argoproj.io/v1alpha1
+kind: AppProject
+metadata:
+  name: apps-devteam-b
+spec:
+  description: Microservices and apps
+  destinations:
+    - name: in-cluster
+      server: "https://kubernetes.default.svc"
+      namespace: "devteam-b"
+    - name: in-cluster
+      server: "https://kubernetes.default.svc"
+      namespace: "devteam-b-*"
+      ###
+    - namespace: "!kube-system"
+      server: "*"
+    - namespace: "!cert-manager"
+      server: "*"
+    - namespace: "!ingress-controller"
+      server: "*"
+  clusterResourceWhitelist:
+    - group: "*"
+      kind: "*"
+  sourceRepos:
+    - git@github.com:paolocarta/gitops-repo-cicd-presentation.git
