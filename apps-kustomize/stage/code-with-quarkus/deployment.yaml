@@ -7,5 +7,5 @@ spec:
   template:
     spec:
       containers:
-          image: gcr.io/paolos-playground-323415/code-with-quarkus:4
+          image: gcr.io/paolos-playground-323415/code-with-quarkus:11-gitops
           name: code-with-quarkus
