@@ -24,7 +24,6 @@ Build:
     - docker build -t $ECR_REPO:$CI_COMMIT_SHORT_SHA .
     - docker push $ECR_REPO:$CI_COMMIT_SHORT_SHA
 
-
 ##############################################################################
 ##                       Update Manifest                              ##
 ##############################################################################
