@@ -1,31 +1,31 @@
-# apiVersion: argoproj.io/v1alpha1
-# kind: Application
-# metadata:
-#   name: code-with-quarkus-stage
-#   annotations:
-#     argocd.argoproj.io/sync-wave: "3"
-# spec:
-#   project: apps-devteam-a
-#   source:
-#     repoURL: git@github.com:paolocarta/gitops-repo-cicd-presentation.git
-#     targetRevision: master
-#     path: apps-kustomize/stage/code-with-quarkus
-#   destination:
-#     name: in-cluster
-#     namespace: devteam-a-stage
-#   syncPolicy:
-#     automated:
-#       prune: true
-#       selfHeal: true
-#     syncOptions:
-#       - CreateNamespace=false
-#       - ApplyOutOfSyncOnly=true
-#       - PrunePropagationPolicy=foreground
-#       - PruneLast=true
-#       - FailOnSharedResource=true
-#     retry:
-#       limit: 5
-#       backoff:
-#         duration: 5s
-#         factor: 2
-#         maxDuration: 5m
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: code-with-quarkus-stage
+  annotations:
+    argocd.argoproj.io/sync-wave: "3"
+spec:
+  project: apps-devteam-a
+  source:
+    repoURL: git@github.com:paolocarta/gitops-repo-cicd-presentation.git
+    targetRevision: master
+    path: apps-kustomize/stage/code-with-quarkus
+  destination:
+    name: in-cluster
+    namespace: devteam-a-stage
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=false
+      - ApplyOutOfSyncOnly=true
+      - PrunePropagationPolicy=foreground
+      - PruneLast=true
+      - FailOnSharedResource=true
+    retry:
+      limit: 5
+      backoff:
+        duration: 5s
+        factor: 2
+        maxDuration: 5m
