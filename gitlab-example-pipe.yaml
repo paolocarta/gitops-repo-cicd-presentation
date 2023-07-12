@@ -1,0 +1,50 @@
+image: docker:19.03.7
+services:
+  - docker:19.03.7-dind
+stages:
+  - Build
+  - Update Chart
+
+##############################################################################
+##                              Variables                                   ##
+##############################################################################
+variables:
+  CD_CHART_REPO: nginx-webserver-chart
+  CD_GIT_REPOSITORY: git@github.com:paolocarta/gitops-repo-cicd-presentation.git
+  CD_MANIFEST_FILE: values.yaml
+  APP_NAME: gitops-argocd-demo
+  CHART_FOLDER: helm
+
+##############################################################################
+##                             Build Image                                 ##
+##############################################################################
+Build:
+  stage: Build
+  script:
+    - docker build -t $ECR_REPO:$CI_COMMIT_SHORT_SHA .
+    - docker push $ECR_REPO:$CI_COMMIT_SHORT_SHA
+
+
+##############################################################################
+##                       Update Manifest                              ##
+##############################################################################
+update_chart_manifest:
+  stage: Update Manifest
+  needs:
+    - Build
+  variables:
+    GIT_STRATEGY: none
+  retry: 2
+  script:
+    # Configure Git
+    - git config --global user.name $APP_NAME
+    - git config --global user.email $APP_NAME"@gitlab.com"
+    - git clone --single-branch --branch main $CD_GIT_REPOSITORY
+    #
+    - cd gitops-repo-cicd-presentation/apps-kustomize/dev/code-with-quarkus
+    - cat deployment.yaml
+    - yq -i '.spec.template.spec.containers[0].image = \"${CONTAINER_REG}/${GCP_PROJECT}/${SERVICE_NAME}:${BUILD_NUMBER}-gitops\"' deployment.yaml
+    - cat deployment.yaml
+    #
+    - git commit -am \"updated app ${SERVICE_NAME} to version ${BUILD_NUMBER}\"
+    - git push   
