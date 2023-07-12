@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: code-with-quarkus
 spec:
-  replicas: 3
+  replicas: 2
   template:
     spec:
       containers:
