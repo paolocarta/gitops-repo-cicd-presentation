@@ -27,7 +27,7 @@ Build:
 ##############################################################################
 ##                       Update Manifest                              ##
 ##############################################################################
-update_chart_manifest:
+update_manifest:
   stage: Update Manifest
   needs:
     - Build
