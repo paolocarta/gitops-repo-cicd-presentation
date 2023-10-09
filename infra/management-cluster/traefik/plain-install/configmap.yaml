@@ -46,7 +46,7 @@ data:
         # ingressClass: "traefik"
 
     log:
-      level: INFO
+      level: DEBUG
       format: common
 
     accessLog:
