@@ -13,3 +13,9 @@ spec:
       services:
         - name: traefik
           port: 80
+    - kind: Rule
+      match: Host(`argocd.cicd.withpaolo.com`) && PathPrefix(`/.well-known/acme-challenge`)
+      priority: 10
+      services:
+        - name: traefik
+          port: 80
