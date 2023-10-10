@@ -1,0 +1,35 @@
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: code-with-quarkus-kustomize-dev
+  namespace: devteam-a-dev
+spec:
+  entryPoints:
+    - websecure
+  routes:
+    - kind: Rule
+      match: Host(`appdev.cicd.withpaolo.com`)
+      priority: 9
+      services:
+        - name: code-with-quarkus-kustomize
+          port: 80
+  tls:
+    certResolver: myresolver
+--- 
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: code-with-quarkus-kustomize-stage
+  namespace: devteam-a-stage
+spec:
+  entryPoints:
+    - websecure
+  routes:
+    - kind: Rule
+      match: Host(`appstage.cicd.withpaolo.com`)
+      priority: 9
+      services:
+        - name: code-with-quarkus-kustomize
+          port: 80
+  tls:
+    certResolver: myresolver
